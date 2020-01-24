@@ -4,7 +4,8 @@
 # |____  | | |      | |  | |    | |    | |      | ,__, | | |\ \ | | |   | |
 # ,____| | | |____, | |__| |    | |    | |____, | |  | | | | \  | | |___/ |
 # |______| |______| |______|    |_|    |______| |_|  |_| |_|  \_| |______/
-# v0.0.1
+# by Lucien Fiorini & Alexander Letourneur
+# v0.1
 
 # File --main.py--
 
@@ -34,7 +35,7 @@ def thief_move(thief_location, cops_location):
     thief_adjacent = g[cops_location].keys()
     thief_possible_paths = []
     thief_possible_paths_gen = nx.all_pairs_dijkstra_path(g)
-    #thief_possible_paths = thief_possible_paths_gen[cops_location](thief_possible_paths()) 
+   #thief_possible_paths = thief_possible_paths_gen[cops_location](thief_possible_paths()) 
     map(thief_possibles_paths
     print(thief_adjacent)
     print(thief_possible_paths)
@@ -55,5 +56,3 @@ while True:
     if cops_location == thief_location:
         print("cops win")
         break
-# Tests
-thief_move(thief_location, cops_location)
