@@ -23,3 +23,6 @@ while True:
         print("cops win")
         break
 
+# Tests
+x = ia.cgen()
+print(x)
