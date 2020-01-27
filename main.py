@@ -13,16 +13,21 @@ import config # Located in dir/config.py
 import ia # Located in dir/ia.py
 
 # Main
-tlocation = ia.tspawn()
-clocation = ia.cspawn(tlocation)
-while True:
-    clocation = ia.cmove(clocation, tlocation)
-    print("Thief Location:", tlocation)
-    print("Cops Location:", clocation)
-    if clocation == tlocation:
-        print("cops win")
-        break
+def main():    
+    tlocation = ia.tspawn()
+    clocation = ia.cspawn(tlocation)
+    while True:
+        clocation = ia.cmove(clocation, tlocation)
+        print("thief location:", tlocation)
+        print("cops location:", clocation)
+        if clocation == tlocation:
+            print("cops win")
+            break
+
+main()
+
 
 # Tests
-x = ia.cgen()
-print(x)
+
+print(config.cnum)
+

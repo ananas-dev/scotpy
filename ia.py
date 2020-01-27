@@ -3,21 +3,19 @@
 import networkx as nx
 import random
 import config
-g = config.mkgraph(config.nodes, config.edges)
+import graphs
+
+g = graphs.mkgraph(graphs.nodes, graphs.edges) # Make the graph
+cnum = config.cnum
 
 def tspawn():
-    tlocation = random.choice(config.nodes)
+    tlocation = random.choice(graphs.nodes)
     print("thief spawn:",tlocation)
     return(tlocation)
 
-def cgen(config.cnum):
-    for x in config.cnum:
-        list = x
-        return(x)
-
 def cspawn(tlocation): 
     while True:
-        clocation = random.choice(config.nodes)
+        clocation = random.choice(graphs.nodes)
         if clocation != tlocation:
             break
     print("cops spawn:",clocation)
