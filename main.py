@@ -16,6 +16,7 @@ import ia # Located in dir/ia.py
 def main():    
     tlocation = ia.tspawn()
     clocation = ia.cspawn(tlocation)
+    print("graph:" 
     while True:
         clocation = ia.cmove(clocation, tlocation)
         print("thief location:", tlocation)
@@ -24,10 +25,7 @@ def main():
             print("cops win")
             break
 
-main()
+if __name__ == "__main__":
+    main()
 
-
-# Tests
-
-print(config.cnum)
-
+ # Tests
