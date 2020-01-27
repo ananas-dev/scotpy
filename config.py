@@ -4,6 +4,28 @@
 # Graphs #
 ##########
 
+# The names of the nodes of the graphs follows this logic:
+#
+# 01 o-----o 11    01 o-----o 11        
+#    |     |          |     |\  
+#    |     |          |     | \          
+# 00 o-----o 10    00 o-----o--o 02
+#                          10
+# So 10 -> 10
+#    01 -> 01
+#    20 -> 20
+#    02 -> 02
+#
+# If the graph has 3 dimensions:
+#    
+#  101 o-----o 111         So 100 -> 100
+# 100->|\o---|\o 110          010 -> 10
+#      | |   | |              001 -> 1
+#  001 o-|---o\|<-011 
+#       \o-----o  
+#       000   010 
+
+
 # Star
 star = {
     "name"  : "star", 
@@ -15,18 +37,25 @@ star = {
 # Square
 square = {
     "name"  : "square",
-    "nodes" : [0, 1, 2, 3],
-    "edges" : [(0, 1), (1, 2), (2, 3), (3, 0)]
+    "nodes" : [0, 1, 11, 10],
+    "edges" : [(0, 1), (1, 11), (11, 10), (10, 0)]
+}
+
+# Triangle
+triangle = {
+    "name"  : "triangle",
+    "nodes" : [1, 0, 10],
+    "edges" : [(1, 0), (0, 10), (10, 1)]
 }
 
 # Cube
 cube = {
     "name"  : "cube",
-    "nodes" : [0, 4, 6, 2,  # Floor 1
+    "nodes" : [0, 100, 110, 10,  # Floor 1
                1, 5, 7, 3], # Floor 2
-    "edges" : [(0, 4), (4, 6), (6, 2), (2, 0),  # Floor 1
-               (1, 5), (5, 7), (7, 3), (3, 1),  # Floor 2
-               (0, 1), (4, 5), (6, 7), (2, 3)]  # Links floor 1 to floor 2 
+    "edges" : [(0, 100), (100, 110), (110, 10), (10, 0),  # Floor 1
+               (1, 101), (101, 111), (111, 11), (11, 1),  # Floor 2
+               (0, 1), (100, 101), (110, 111), (10, 11)]  # Links floor 1 to floor 2 
 }
 
 # Graph (star, square, cube)

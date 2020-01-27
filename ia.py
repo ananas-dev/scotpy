@@ -6,7 +6,7 @@ import config
 import graphs
 
 g = graphs.mkgraph(graphs.nodes, graphs.edges) # Makes the graph
-cnum = config.cnum
+cnum = config.cnum # Gets the number of cops
 
 def tspawn():
     tlocation = random.choice(graphs.nodes)
@@ -20,16 +20,10 @@ def cspawn(tlocation):
     return(clocation)
 
 def tmove(tlocation, clocation):    
-    tadj = g[clocation].keys()
+    tadj = g[tlocation].keys()
     for x in tadj:
         tpaths = nx.shortest_path(g)[x][clocation]
-        map
         print(tpaths)
-
-
-#map(thief_possibles_paths
-#    print(thief_adjacent)
-#    print(thief_possible_paths)
 
 def cmove(clocation, tlocation):
     cops_path = nx.shortest_path(g)[clocation][tlocation]
