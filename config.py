@@ -1,5 +1,9 @@
 # File --config.py--
 
+##########
+# Graphs #
+##########
+
 # Star
 star = {
     "nodes" : [0, 1, 2, 3, 5, 6, 8, 9],
@@ -15,6 +19,10 @@ square = {
 
 # Graph (star, square)
 graph = star
+
+########
+# Cops #
+########
 
 # Number of Cops
 cnum = 1 # Between 1 and 3
