@@ -3,7 +3,7 @@
 import networkx as nx # Networkx 1.11
 import config
 
-# Set nodes and egdes of choosen graph
+# Sets nodes and egdes of choosen graph
 nodes = config.graph["nodes"]
 edges = config.graph["edges"]
 

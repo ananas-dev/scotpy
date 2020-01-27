@@ -5,12 +5,11 @@ import random
 import config
 import graphs
 
-g = graphs.mkgraph(graphs.nodes, graphs.edges) # Make the graph
+g = graphs.mkgraph(graphs.nodes, graphs.edges) # Makes the graph
 cnum = config.cnum
 
 def tspawn():
     tlocation = random.choice(graphs.nodes)
-    print("thief spawn:",tlocation)
     return(tlocation)
 
 def cspawn(tlocation): 
@@ -18,7 +17,6 @@ def cspawn(tlocation):
         clocation = random.choice(graphs.nodes)
         if clocation != tlocation:
             break
-    print("cops spawn:",clocation)
     return(clocation)
 
 def tmove(tlocation, clocation):    
