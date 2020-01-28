@@ -1,6 +1,6 @@
 # scotpy
 
-![alt text](https://raw.githubusercontent.com/ananas-dev/scotpy/master/gui/logo2.png)
+![alt text](https://raw.githubusercontent.com/ananas-dev/scotpy/master/references/logo2.png)
 
 Scotpy is a game where cops are trying to catch a thief in a graph.
 The project isnt finish at all so the code might be incomplete.
