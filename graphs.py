@@ -14,3 +14,7 @@ def mkgraph(nodes, edges):
     g.add_nodes_from(nodes) # Adds nodes
     g.add_edges_from(edges) # Adds edges
     return(g)
+
+def setturns():
+    turns = len(config.graph["nodes"])
+    return(turns)

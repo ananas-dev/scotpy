@@ -24,7 +24,7 @@ def tmove(tlocation, clocation):
     tpaths = []
     for x in tadj:
         tpaths.append(nx.shortest_path(g)[x][clocation])
-    tpath = max((x) for x in tpaths)
+    tpath = max(tpaths, key=len)
     tlocation = tpath[0]
     return(tlocation)
 
