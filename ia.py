@@ -24,9 +24,11 @@ def tmove(tlocation, clocation):
     tpaths = []
     for x in tadj:
         tpaths.append(nx.shortest_path(g)[x][clocation])
-    print(tpaths)
+    tpath = max((x) for x in tpaths)
+    tlocation = tpath[0]
+    return(tlocation)
 
 def cmove(clocation, tlocation):
-    cops_path = nx.shortest_path(g)[clocation][tlocation]
-    clocation = cops_path[1] 
+    cpath = nx.shortest_path(g)[clocation][tlocation]
+    clocation = cpath[1] 
     return(clocation)

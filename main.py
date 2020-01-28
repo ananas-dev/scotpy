@@ -24,17 +24,19 @@ def main():
     print("\nthief spawn:", tlocation)
     clocation = ia.cspawn(tlocation) 
     print("cops spawn:", clocation)
-    # Some tests
-    print("\n#test#",)
-    ia.tmove(tlocation, clocation)
     #Main loop
-    while True:
-        clocation = ia.cmove(clocation, tlocation) # Cops movement
+    for x in range(0, 30):
+        tlocation = ia.tmove(tlocation, clocation)
         print("\nthief location:", tlocation)
+        if clocation == tlocation: #Checks if cops win
+            print("\nthe cops win !")
+            break
+        clocation = ia.cmove(clocation, tlocation) # Cops movement
         print("cops location:", clocation)
         if clocation == tlocation: #Checks if cops win
-            print("\ncops win")
+            print("\nthe cops win !")
             break
-
+    if clocation != tlocation:
+        print("\nthe thief win !")
 if __name__ == "__main__":
     main()
