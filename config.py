@@ -61,11 +61,11 @@ cube = {
 }
 
 # Graph (star, square, cube, triangle)
-graph = square 
+graph = square
 
 ########
 # Cops #
 ########
 
 # Number of Cops
-cnum = 1 # Between 1 and 3
+Cnum = 1 # Between 1 and 3

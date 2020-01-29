@@ -1,34 +1,38 @@
 # File --ia.py--
 
 import networkx as nx
+
 import random
 import config
 import graphs
 
 g = graphs.mkgraph(graphs.nodes, graphs.edges) # Makes the graph
-cnum = config.cnum # Gets the number of cops
+Cnum = config.Cnum # Gets the number of cops
 
 def tspawn():
-    tlocation = random.choice(graphs.nodes)
-    return(tlocation)
+    Tlocation = random.choice(graphs.nodes) # Random spawn
+    return(Tlocation)
 
-def cspawn(tlocation): 
+def cspawn(Tlocation): 
     while True:
-        clocation = random.choice(graphs.nodes)
-        if clocation != tlocation:
+        Clocation = random.choice(graphs.nodes) # Random spawn
+        if Clocation != Tlocation: # Repeat if Cspawn = Tspawn
             break
-    return(clocation)
+    return(Clocation)
 
-def tmove(tlocation, clocation):    
-    tadj = g[tlocation].keys()
-    tpaths = []
-    for x in tadj:
-        tpaths.append(nx.shortest_path(g)[x][clocation])
-    tpath = max(tpaths, key=len)
-    tlocation = tpath[0]
-    return(tlocation)
+def tmove(Tlocation, Clocation):
+    Tadj = g[Tlocation].keys() # Gets the nodes adjacents to the thief
+    Tpaths = []
+    # Finds the ajacent node who is the furthest to the policeman
+    for x in Tadj:
+        Tpaths.append(nx.shortest_path(g)[x][Clocation])
+    Tpath = max(Tpaths, key=len)
+    Tlocation = Tpath[0]
+    return(Tlocation)
+    
 
-def cmove(clocation, tlocation):
-    cpath = nx.shortest_path(g)[clocation][tlocation]
-    clocation = cpath[1] 
-    return(clocation)
+def cmove(Clocation, Tlocation):
+    # Finds the shortest path to the thief
+    Cpath = nx.shortest_path(g)[Clocation][Tlocation]
+    Clocation = Cpath[1] 
+    return(Clocation)
