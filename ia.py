@@ -9,25 +9,25 @@ import graphs
 g = graphs.mkgraph(graphs.nodes, graphs.edges) # Makes the graph
 Cnum = config.Cnum # Gets the number of cops
 
-def tspawn():
+def Tspawn():
     Tlocation = random.choice(graphs.nodes) # Random spawn
     return(Tlocation)
 
-def cspawn(Tlocation): 
+def Cspawn(Tlocation): 
     while True:
         Clocation = random.choice(graphs.nodes) # Random spawn
         if Clocation != Tlocation: # Repeat if Cspawn = Tspawn
             break
     return(Clocation)
 
-def tmove(Tlocation, Clocation):
+def Tmove(Tlocation, Clocation):
     Tadj = list(g[Tlocation].keys()) # Gets the nodes adjacents to the thief
     Tpaths = []
     # Finds the ajacent node who is the furthest to the policeman
     for x in Tadj:
         Tpaths.append(nx.shortest_path(g)[x][Clocation])
     maxlen = max(map(len, Tpaths))
-    result = [s for s in Tpaths if len(s) == maxlen]
+    result = [x for x in Tpaths if len(x) == maxlen]
     Tpath = []
     for x in result:
         Tpath.append(x[0])
@@ -39,8 +39,10 @@ def tmove(Tlocation, Clocation):
     return(Tlocation)
     
 
-def cmove(Clocation, Tlocation):
+def Cmove(Clocation, Tlocation):
     # Finds the shortest path to the thief
-    Cpath = nx.shortest_path(g)[Clocation][Tlocation]
+    Cpaths = []
+    Cpaths.append(nx.shortest_path(g)[Clocation][Tlocation])
+    Cpath = max(Cpaths, key=len)
     Clocation = Cpath[1] 
     return(Clocation)

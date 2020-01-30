@@ -12,6 +12,7 @@
 import config # Located in engine/config.py
 import ia # Located in engine/ia.py
 import graphs # Located in engine/graph.py
+import rules # Located in engine/rules.py
 
 # Main
 def main():    
@@ -21,21 +22,21 @@ def main():
     print("nodes :", config.graph["nodes"])
     print("edges :", config.graph["edges"])
     # Sets the number of turns
-    turns = graphs.setturns()
+    turns = rules.setturns()
     print("\nnumber of turns:", turns)
     # Spawns the cops and the thief
-    Tlocation = ia.tspawn()
+    Tlocation = ia.Tspawn()
     print("\nthief spawn:", Tlocation)
-    Clocation = ia.cspawn(Tlocation) 
+    Clocation = ia.Cspawn(Tlocation) 
     print("cops spawn:", Clocation)
     #Main loop
     for x in range(0, turns):
-        Tlocation = ia.tmove(Tlocation, Clocation)
+        Tlocation = ia.Tmove(Tlocation, Clocation)
         print("\nthief location:", Tlocation)
         if Clocation == Tlocation: #Checks if cops win
             print("\nthe cops win !\n")
             break
-        Clocation = ia.cmove(Clocation, Tlocation) # Cops movement
+        Clocation = ia.Cmove(Clocation, Tlocation) # Cops movement
         print("cops location:", Clocation)
         if Clocation == Tlocation: #Checks if cops win
             print("\nthe cops win !\n")
@@ -46,7 +47,20 @@ def main():
 # For testing x time main()
 def test():
     for x in range(0, 1000000):
-        main()
+        # Sets the number of turns
+        turns = rules.setturns()
+        # Spawns the cops and the thief
+        Tlocation = ia.tspawn()
+        Clocation = ia.cspawn(Tlocation) 
+        #Main loop
+        for x in range(0, turns):
+            Tlocation = ia.tmove(Tlocation, Clocation)
+            if Clocation == Tlocation: #Checks if cops win
+                break
+            Clocation = ia.cmove(Clocation, Tlocation) # Cops movement
+            if Clocation == Tlocation: #Checks if cops win
+                break
+
 
 if __name__ == "__main__":
     main()
