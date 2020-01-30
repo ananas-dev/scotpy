@@ -1,6 +1,6 @@
 # File --graphs.py--
 
-import networkx as nx # Networkx 1.11
+import networkx as nx
 import config
 
 # Sets nodes and egdes of choosen graph

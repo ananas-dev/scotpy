@@ -21,13 +21,21 @@ def cspawn(Tlocation):
     return(Clocation)
 
 def tmove(Tlocation, Clocation):
-    Tadj = g[Tlocation].keys() # Gets the nodes adjacents to the thief
+    Tadj = list(g[Tlocation].keys()) # Gets the nodes adjacents to the thief
     Tpaths = []
     # Finds the ajacent node who is the furthest to the policeman
     for x in Tadj:
         Tpaths.append(nx.shortest_path(g)[x][Clocation])
-    Tpath = max(Tpaths, key=len)
-    Tlocation = Tpath[0]
+    maxlen = max(map(len, Tpaths))
+    result = [s for s in Tpaths if len(s) == maxlen]
+    Tpath = []
+    for x in result:
+        Tpath.append(x[0])
+    Tpath_adj = []
+    for x in Tpath:
+        Tpath_adj.append(list(g[x].keys()))
+    choose = Tpath_adj.index(max(Tpath_adj, key=len))
+    Tlocation = Tpath[choose]
     return(Tlocation)
     
 
