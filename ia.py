@@ -41,8 +41,19 @@ def Tmove(Tlocation, Clocation):
 
 def Cmove(Clocation, Tlocation):
     # Finds the shortest path to the thief
+    Cadj = list(g[Clocation].keys()) # Gets the nodes adjacents to the cops
     Cpaths = []
-    Cpaths.append(nx.shortest_path(g)[Clocation][Tlocation])
-    Cpath = max(Cpaths, key=len)
-    Clocation = Cpath[1] 
+    # Finds the ajacent node who is the furthest to the thief
+    for x in Cadj:
+        Cpaths.append(nx.shortest_path(g)[x][Tlocation])
+    minlen = min(map(len, Cpaths))
+    result = [x for x in Cpaths if len(x) == minlen]
+    Cpath = []
+    for x in result:
+        Cpath.append(x[0])
+    Cpath_adj = []
+    for x in Cpath:
+        Cpath_adj.append(list(g[x].keys()))
+    choose = Cpath_adj.index(max(Cpath_adj, key=len))
+    Clocation = Cpath[choose]
     return(Clocation)
