@@ -5,7 +5,7 @@
 # ,____| | | |____, | |__| |    | |    | |        | |
 # |______| |______| |______|    |_|    |_|        |_|
 # by Lucien Fiorini
-# v0.2
+# v0.5
 
 # File --main.py--
 
@@ -15,7 +15,35 @@ import graphs # Located in engine/graph.py
 import rules # Located in engine/rules.py
 
 # Main
-def main():    
+def all_poss_test():    
+    turns = rules.setturns()
+    all_spawns = rules.spawns()
+    Twin = 0
+    Cwin = 0
+    for spawns in all_spawns:
+    # Spawns the cops and the thief
+        Tlocation = spawns[1]
+        Clocation = spawns[0]
+        #Main loop
+        for x in range(0, turns):
+            Tlocation = ia.Tmove(Tlocation, Clocation)
+            if Clocation == Tlocation: #Checks if cops win
+                Cwin = Cwin + 1
+                break
+            Clocation = ia.Cmove(Clocation, Tlocation) # Cops movement
+            if Clocation == Tlocation: #Checks if cops win
+                Cwin = Cwin+1
+                break
+            ia.Cstats(Clocation)
+        if Clocation != Tlocation:
+            Twin = Twin+1
+#    Cwin_percent = rules.percent_of_win()
+    print("\nCops win:", Cwin)
+    print("Thief win:", Twin, "\n")
+#    print(Cwin_percent)
+
+
+def visual_test():    
     print("\n--SCOTPY--")
     # Prints graph's info
     print("\ngraph :", config.graph["name"])
@@ -45,23 +73,5 @@ def main():
     if Clocation != Tlocation:
         print("\nthe thief wins !\n")
 
-# For testing x time main()
-def test():
-    for x in range(0, 1000000):
-        # Sets the number of turns
-        turns = rules.setturns()
-        # Spawns the cops and the thief
-        Tlocation = ia.tspawn()
-        Clocation = ia.cspawn(Tlocation) 
-        #Main loop
-        for x in range(0, turns):
-            Tlocation = ia.tmove(Tlocation, Clocation)
-            if Clocation == Tlocation: #Checks if cops win
-                break
-            Clocation = ia.cmove(Clocation, Tlocation) # Cops movement
-            if Clocation == Tlocation: #Checks if cops win
-                break
-
-
 if __name__ == "__main__":
-    main()
+    all_poss_test()

@@ -38,7 +38,6 @@ def Tmove(Tlocation, Clocation):
     Tlocation = Tpath[choose]
     return(Tlocation)
     
-
 def Cmove(Clocation, Tlocation):
     # Finds the shortest path to the thief
     Cadj = list(g[Clocation].keys()) # Gets the nodes adjacents to the cops
@@ -63,3 +62,7 @@ def Cstats(Clocation):
     Cadj_loc_list = list(g[Clocation].keys())
     Cadj_loc_list.append(Clocation)
     return(Cadj_list, Cadj_loc_list)
+
+def Tstats(Tlocation):
+    Tadj_list = list(g[Tlocation].keys())
+    return(Tadj_list)

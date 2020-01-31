@@ -61,7 +61,7 @@ cube = {
 }
 
 # Graph (star, square, cube, triangle)
-graph = star
+graph = cube
 
 ########
 # Cops #
