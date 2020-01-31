@@ -4,7 +4,7 @@
 # Graphs #
 ##########
 
-# The names of the nodes of the graphs follows this logic:
+# The names of the nodes of the graphs follow this logic:
 #
 # 01 o-----o 11    01 o-----o 11        
 #    |     |          |     |\  

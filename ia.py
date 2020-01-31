@@ -57,3 +57,9 @@ def Cmove(Clocation, Tlocation):
     choose = Cpath_adj.index(max(Cpath_adj, key=len))
     Clocation = Cpath[choose]
     return(Clocation)
+
+def Cstats(Clocation):
+    Cadj_list = list(g[Clocation].keys())
+    Cadj_loc_list = list(g[Clocation].keys())
+    Cadj_loc_list.append(Clocation)
+    return(Cadj_list, Cadj_loc_list)

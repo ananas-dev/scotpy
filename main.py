@@ -41,6 +41,7 @@ def main():
         if Clocation == Tlocation: #Checks if cops win
             print("\nthe cops win !\n")
             break
+        ia.Cstats(Clocation)
     if Clocation != Tlocation:
         print("\nthe thief wins !\n")
 
