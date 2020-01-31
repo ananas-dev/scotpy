@@ -37,10 +37,10 @@ def all_poss_test():
             ia.Cstats(Clocation)
         if Clocation != Tlocation:
             Twin = Twin+1
-#    Cwin_percent = rules.percent_of_win()
+    Cwin_percent = rules.percent_of_win(Cwin, all_spawns)
     print("\nCops win:", Cwin)
     print("Thief win:", Twin, "\n")
-#    print(Cwin_percent)
+    print("Cops have",Cwin_percent,"% chances of win in",config.graph["name"],"\n")
 
 
 def visual_test():    
@@ -73,5 +73,6 @@ def visual_test():
     if Clocation != Tlocation:
         print("\nthe thief wins !\n")
 
+## MAIN ##
 if __name__ == "__main__":
-    all_poss_test()
+    all_poss_test() # Choose one of the mains fonctions

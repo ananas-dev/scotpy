@@ -1,6 +1,7 @@
 #File --rules.py--
 
 import config
+from fractions import Fraction
 
 # Number of turn algorithm:
 # The number of turn is set to the number of nodes of the graph
@@ -9,7 +10,7 @@ def setturns():
     return(turns)
 
 # Algorithm to check all spawn possibilities:
-# (players^number of nodes - number of nodes to get the number of possiblities)
+# ((number of nodes^entities) - number of nodes to get the number of possiblities)
 def spawns():
     nodes = config.graph["nodes"]
     all_spawns = []
@@ -20,13 +21,12 @@ def spawns():
                 Tposs.append(y) # Gets all the possibilities of spawn in each cops spawns
         for z in Tposs:
             all_spawns.append([i, z]) # Returns a list of each spawn possible [cops, thief]
-#    all_spawns_num = 2^len(nodes)-len(nodes)
     return(all_spawns)
-
-#def percent_of_win(Cwin):
-#    all_spawns_num  = rules.spawn()
-#    Cwin_percent = (100/all_spawn_num)*Cwin
-#    return(Cwin_percent)
+    
+def percent_of_win(Cwin, all_spawns):
+    all_spawns_num = len(all_spawns)
+    Cwin_percent = (100/all_spawns_num)*Cwin
+    return(Cwin_percent)
 
 # Check if the cops win algorithm:
 
@@ -41,6 +41,3 @@ def spawns():
 #        print('ok')
 #    else:
 #        print('pas ok')
-
-
-

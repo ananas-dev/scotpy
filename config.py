@@ -60,8 +60,19 @@ cube = {
                (0, 1), (100, 101), (110, 111), (10, 11)]  # Links floor 1 to floor 2 
 }
 
-# Graph (star, square, cube, triangle)
-graph = cube
+# Scotland Yard Junior
+sy_junior = {
+    "name"  : "scotland yard junior", 
+    "nodes" : [10, 20, 1, 11, 21, 12, 22, 32],
+    "edges" : [(10, 20),
+               (1, 11),
+               (12, 22), (22, 32),
+               (10, 1), (10, 11), (20, 21), (20, 32),
+               (1, 12), (11, 12), (21, 22)]
+}
+
+# Graph (star, square, cube, triangle, sy_junior(for Scotland Yard Junior))
+graph = sy_junior
 
 ########
 # Cops #
