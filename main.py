@@ -9,70 +9,96 @@
 
 # File --main.py--
 
-import config # Located in engine/config.py
-import ia # Located in engine/ia.py
-import graphs # Located in engine/graph.py
-import rules # Located in engine/rules.py
+from ia import * # Located in engine/ia.py
+from graph import * # Located in engine/graph.py
+import algorithm # Located in engine/rules.py
 
-# Main
+## MULTIPLE COPS TEST ##
+def test():
+    used = []
+    tlocation = thief.spawn.random()
+    used.append(tlocation)
+    c1 = cops.spawn.random(used)
+    used.append(c1)
+    c2 = cops.spawn.random(used)
+    used.append(c2)
+    turns = algorithm.setturns()
+    for x in range(0, turns):
+        tlocation = thief.move.furthest(tlocation, [c1, c2])
+        print("\nthief location:", tlocation)
+        if tlocation in [c1, c2]: # Check if cops win
+            print("\nthe cops win !\n")
+            break
+        c1 = cops.move.nearest(tlocation, c1)
+        c2 = cops.move.nearest(tlocation, c2)
+        print("cops location 1:", c1)
+        print("cops location 2:", c2)
+        if tlocation in [c1, c2]: # Check if cops win
+            print("\nthe cops win !\n")
+            break
+    if tlocation not in [c1, c2]:
+        print("\nthe thief wins !\n")
+
+
+## VISUAL TEST ##
+def visual_test():
+    # Main title
+    print("\n--SCOTPY--")
+    # Print graph's info
+    print("\ngraph :", graph["name"])
+    print("nodes :", graph["nodes"])
+    print("edges :", graph["edges"])
+    # Set the number of turns
+    turns = algorithm.setturns()
+    print("\nnumber of turns:", turns)
+    # Spawn the cops and the thief
+    tlocation = thief.spawn.random()
+    clocation = cops.spawn.random(tlocation)
+    print("\nthief spawn:", tlocation)
+    print("cops spawn:", clocation)
+    # Main loop
+    for x in range(0, turns):
+        tlocation = thief.move.furthest(tlocation, clocation)
+        print("\nthief location:", tlocation)
+        if clocation == tlocation: # Check if cops win
+            print("\nthe cops win !\n")
+            break
+        clocation = cops.move.nearest(tlocation, clocation)
+        print("cops location:", clocation)
+        if clocation == tlocation: # Check if cops win
+            print("\nthe cops win !\n")
+            break
+    if clocation != tlocation:
+        print("\nthe thief wins !\n")
+
+
+## TEST OF ALL POSSIBILITIES ##
 def all_poss_test():    
-    turns = rules.setturns()
-    all_spawns = rules.spawns()
-    Twin = 0
-    Cwin = 0
+    turns = algorithm.setturns()
+    all_spawns = algorithm.spawns()
+    twin = 0
+    cwin = 0
     for spawns in all_spawns:
     # Spawns the cops and the thief
-        Tlocation = spawns[1]
-        Clocation = spawns[0]
+        tlocation = spawns[1]
+        clocation = spawns[0]
         #Main loop
         for x in range(0, turns):
-            Tlocation = ia.Tmove(Tlocation, Clocation)
-            if Clocation == Tlocation: #Checks if cops win
-                Cwin = Cwin + 1
+            tlocation = thief.move.furthest(tlocation, clocation)
+            if clocation == tlocation: #Checks if cops win
+                cwin = cwin + 1
                 break
-            Clocation = ia.Cmove(Clocation, Tlocation) # Cops movement
-            if Clocation == Tlocation: #Checks if cops win
-                Cwin = Cwin+1
+            clocation = cops.move.nearest(tlocation, clocation)
+            if clocation == tlocation: #Checks if cops win
+                cwin = cwin+1
                 break
-            ia.Cstats(Clocation)
-        if Clocation != Tlocation:
-            Twin = Twin+1
-    Cwin_percent = rules.percent_of_win(Cwin, all_spawns)
-    print("\nCops win:", Cwin)
-    print("Thief win:", Twin, "\n")
-    print("Cops have",Cwin_percent,"% chances of win in",config.graph["name"],"\n")
-
-
-def visual_test():    
-    print("\n--SCOTPY--")
-    # Prints graph's info
-    print("\ngraph :", config.graph["name"])
-    print("nodes :", config.graph["nodes"])
-    print("edges :", config.graph["edges"])
-    # Sets the number of turns
-    turns = rules.setturns()
-    print("\nnumber of turns:", turns)
-    # Spawns the cops and the thief
-    Tlocation = ia.Tspawn()
-    print("\nthief spawn:", Tlocation)
-    Clocation = ia.Cspawn(Tlocation) 
-    print("cops spawn:", Clocation)
-    #Main loop
-    for x in range(0, turns):
-        Tlocation = ia.Tmove(Tlocation, Clocation)
-        print("\nthief location:", Tlocation)
-        if Clocation == Tlocation: #Checks if cops win
-            print("\nthe cops win !\n")
-            break
-        Clocation = ia.Cmove(Clocation, Tlocation) # Cops movement
-        print("cops location:", Clocation)
-        if Clocation == Tlocation: #Checks if cops win
-            print("\nthe cops win !\n")
-            break
-        ia.Cstats(Clocation)
-    if Clocation != Tlocation:
-        print("\nthe thief wins !\n")
+        if clocation != tlocation:
+            twin = twin+1
+    cwin_percent = algorithm.percent_of_win(cwin, all_spawns)
+    print("\nCops win:", cwin)
+    print("Thief win:", twin, "\n")
+    print("Cops have",cwin_percent,"% chances of win in",graph["name"],"\n")
 
 ## MAIN ##
 if __name__ == "__main__":
-    all_poss_test() # Choose one of the mains fonctions
+    visual_test() # Choose one of the mains fonctions
