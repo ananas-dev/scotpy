@@ -1,68 +1,88 @@
 # File --ia.py--
 
-import networkx as nx
-
 import random
-import config
-import graphs
+from graph import *
 
-g = graphs.mkgraph(graphs.nodes, graphs.edges) # Makes the graph
-Cnum = config.Cnum # Gets the number of cops
+## TEST ##
 
-def Tspawn():
-    Tlocation = random.choice(graphs.nodes) # Random spawn
-    return(Tlocation)
+class thief(): 
+    class spawn():
+        def random():
+            tlocation = random.choice(nodes) # Random spawn
+            return(tlocation)
+    class move():
+        # Random move
+        def random(tlocation):
+            adj = list(g[tlocation].keys()) # Gets the nodes adjacents to the thief
+            tlocation = random.choice(adj)
+            return(tlocation)
+        # Go to the furthest node to the cops
+        def furthest(tlocation, clocation):
+            ## TEST ##
+            #adj = list(g[tlocation].keys()) # Gets the nodes adjacents to the thief
+            #clocation = [6, 9]
+            #paths = []
+            #for x in clocation:
+            #    for y in adj:
+            #        paths.append(nx.shortest_path(g)[x][y])
+            #print(paths)
+            ##------##
+            adj = list(g[tlocation].keys()) # Gets the nodes adjacents to the thief
+            #paths = [[(nx.shortest_path(g)[x][clocation]) for x in adj] for clocation in clocation]
+            #tlocation = paths[0]
+            # Finds the ajacent node who is the furthest to the policeman
+            paths = [(nx.shortest_path(g)[x][clocation]) for x in adj]
+            maxlen = max(map(len, paths))
+            result = [x for x in paths if len(x) == maxlen]
+            path = [x[0] for x in result]
+            path_adj = [list(g[x].keys()) for x in path]
+            choose = path_adj.index(max(path_adj, key=len))
+            tlocation = path[choose]
+            return(tlocation)
+ 
+class cops():
+    class spawn():
+        def random(used):
+            try:
+                tlocation = int(used)
+                while True:
+                    clocation = random.choice(nodes)
+                    if clocation != tlocation:
+                        break
+            except:
+                while True:
+                    rand = random.choice(nodes)
+                    if rand not in used:
+                        clocation = rand
+                        break
+            return(clocation)
+    class move():
+        def nearest(tlocation, clocation):
+            # Finds the shortest path to the thief
+            adj = list(g[clocation].keys()) # Gets the nodes adjacents to the cops
+            # Finds the ajacent node who is the furthest to the thief
+            paths = [nx.shortest_path(g)[x][tlocation] for x in adj]
+            minlen = min(map(len, paths))
+            result = [x for x in paths if len(x) == minlen]
+            path = [x[0] for x in result]
+            path_adj = [list(g[x].keys()) for x in path]
+            choose = path_adj.index(max(path_adj, key=len))
+            clocation = path[choose]
+            return(clocation)
 
-def Cspawn(Tlocation): 
-    while True:
-        Clocation = random.choice(graphs.nodes) # Random spawn
-        if Clocation != Tlocation: # Repeat if Cspawn = Tspawn
-            break
-    return(Clocation)
+#def Cstats(Clocation):
+#    Cadj_list = list(g[Clocation].keys())
+#    Cadj_loc_list = list(g[Clocation].keys())
+#    Cadj_loc_list.append(Clocation)
+#    return(Cadj_list, Cadj_loc_list)
+#
+#def Tstats(Tlocation):
+#    Tadj_list = list(g[Tlocation].keys())
+#    return(Tadj_list)
 
-def Tmove(Tlocation, Clocation):
-    Tadj = list(g[Tlocation].keys()) # Gets the nodes adjacents to the thief
-    Tpaths = []
-    # Finds the ajacent node who is the furthest to the policeman
-    for x in Tadj:
-        Tpaths.append(nx.shortest_path(g)[x][Clocation])
-    maxlen = max(map(len, Tpaths))
-    result = [x for x in Tpaths if len(x) == maxlen]
-    Tpath = []
-    for x in result:
-        Tpath.append(x[0])
-    Tpath_adj = []
-    for x in Tpath:
-        Tpath_adj.append(list(g[x].keys()))
-    choose = Tpath_adj.index(max(Tpath_adj, key=len))
-    Tlocation = Tpath[choose]
-    return(Tlocation)
-    
-def Cmove(Clocation, Tlocation):
-    # Finds the shortest path to the thief
-    Cadj = list(g[Clocation].keys()) # Gets the nodes adjacents to the cops
-    Cpaths = []
-    # Finds the ajacent node who is the furthest to the thief
-    for x in Cadj:
-        Cpaths.append(nx.shortest_path(g)[x][Tlocation])
-    minlen = min(map(len, Cpaths))
-    result = [x for x in Cpaths if len(x) == minlen]
-    Cpath = []
-    for x in result:
-        Cpath.append(x[0])
-    Cpath_adj = []
-    for x in Cpath:
-        Cpath_adj.append(list(g[x].keys()))
-    choose = Cpath_adj.index(max(Cpath_adj, key=len))
-    Clocation = Cpath[choose]
-    return(Clocation)
-
-def Cstats(Clocation):
-    Cadj_list = list(g[Clocation].keys())
-    Cadj_loc_list = list(g[Clocation].keys())
-    Cadj_loc_list.append(Clocation)
-    return(Cadj_list, Cadj_loc_list)
-
-def Tstats(Tlocation):
-    Tadj_list = list(g[Tlocation].keys())
-    return(Tadj_list)
+#def logs(Tlocation, Clocation):
+#    logs = pd.Dataframe({'Voleur', 'Policier',
+#        'Graphe'})
+#    logs = logs.append({'Voleur':Tlocation,'Policier':Clocation,
+#        'Graphe':config.graph['name']})
+#    logs.to_csv('logs.csv')
